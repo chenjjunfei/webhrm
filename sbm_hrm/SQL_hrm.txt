@@ -1,0 +1,74 @@
+#创建数据库mis
+create database mis;
+
+#使用数据库mis
+use mis;
+
+#删除表
+drop table  employee_inf;
+drop table  dept_inf;
+drop table  job_inf;
+drop table  t_user;
+
+create table t_user (
+  id  int auto_increment ,
+  username varchar(50) not null,
+  password varchar(500) not null,
+  phone varchar(50) not null,
+  created datetime default now(), 
+  role varchar(50) not null,
+  primary key (id)
+) ;
+insert  into t_user(username,password,phone,role) values ('user1','$2a$10$N0IPR.hDiBGOQF9p7c3kuOCnsrR5dpGojLKp3thm918p1zf3KPGm6','13200000000','user'),
+('user2','$2a$10$uPCAg/TVDSUgL6ATMzLrq.QnjMm.3VjIKHEQjZBOvKqFeIpcr3EEu','13300000000','user'),
+('admin','$2a$10$1OC0YtOBqsB17dfo9LPPHO3xdGLi/866dzZEefrhC3J/8UNRb/00y','13400000000','admin');
+
+#创建部门表dept_inf
+create table dept_inf (
+  id  varchar(4) ,
+  name varchar(50) not null,
+  remark varchar(300),
+  primary key (id)
+) ;
+insert  into dept_inf(id,name,remark) values ('01','技术部','技术部备注'),('02','运营部','运营部备注'),('03','财务部','财务部备注'),('04','总公办','总公办备注'),('05','市场部','市场部备注'),('06','教学部','教学部备注');
+
+#创建职位表job_inf
+create table job_inf (
+  id varchar(4) ,
+  name varchar(50) not null,
+  remark varchar(300),
+  primary key (id)
+) ;
+insert  into job_inf(id,name,remark) values ('01','职员','职员'),('02','java开发工程师','java开发工程师'),('03','java中级开发工程师','java中级开发工程师'),('04','java高级开发工程师','java高级开发工程师'),('05','系统管理员','系统管理员'),('06','架构师','架构师'),('07','主管','主管'),('08','经理','经理'),('09','总经理','总经理');
+
+#创建员工表employee_inf
+create table employee_inf (
+  id  varchar(6) ,
+  deptid  varchar(4) ,
+  jobid  varchar(4) ,
+  name varchar(20) not null,
+  cardid varchar(18),
+  address varchar(50),
+  postcode varchar(50),
+  tel varchar(16),
+  phone varchar(11),
+  qqnum varchar(10),
+  email varchar(50),
+  sex varchar(4) default '男',
+  party varchar(10),
+  birthday  varchar(10),
+  race varchar(100),
+  education varchar(10),
+  speciality varchar(20),
+  hobby varchar(100),
+  remark varchar(500),
+  createdate  varchar(10),
+  primary key (id),
+  foreign key (deptid) references dept_inf (id),
+  foreign key (jobid) references job_inf (id)
+);
+insert  into employee_inf(id,deptid,jobid,name,cardid,address,postcode,tel,phone,qqnum,email,sex,party,birthday,race,education,speciality,hobby,remark,createdate) 
+values ('0101','01','01','爱丽丝','43234348011988','广州天河','510000','020-77777777','13902001111','36750066','251425887@qq.com',"女",'党员','1980-01-01','满','本科','美声','唱歌','四大天王','2016-03-14'),
+('0201','02','01','杰克','2232432342623','郑州金水','450000','0371-32242242','1364247242','42424','251425887@qq.com',"男",'群众','1989-07-08','汉','研究生','通信工程','打游戏',null,'2016-03-14'),
+ ('0301','01','01','墨离','432801197711251038','广州','510000','020-99999999','13907351532','36750064','36750064@qq.com',"男",'党员','1977-11-25','汉','本科','计算机','爬山','无','2016-07-14');
+

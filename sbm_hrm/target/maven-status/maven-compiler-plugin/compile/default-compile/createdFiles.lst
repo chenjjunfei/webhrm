@@ -1,0 +1,7 @@
+com\xm\controller\IDCardController.class
+com\xm\mapper\StudentMapper.class
+com\xm\controller\StudentController.class
+com\xm\mapper\IDCardMapper.class
+com\xm\pojo\Student.class
+com\xm\pojo\IDCard.class
+com\xm\Demo005MybatisApplication.class
