@@ -1,0 +1,31 @@
+﻿
+后端：
+
+1、在数据库中创建t_user用户表
+
+2、pom文件中引入Spring Security依赖
+
+3、创建实体类RespBean和User,RespBean用来返回给前端的信息，user则是用户属性
+
+4、在mapper（Dao层）包下创建Usermapper接口，用来操作数据库，然后在mapper文件夹下创建Usermapper.xml文件用来存放对数据库中user的增删改查操作
+
+5、在service包下创建UserService用来进行业务操作，实现spring security的身份认证UserDetailsService，通过抛出异常的方式提醒是否用户合法
+
+6、创建security包实现拦截器功能（加壳），通过一系列配置实现security提供的登陆服务、对资源的访问权限和允许跨域访问等功能
+
+7、最后就剩控制器：SecurityController接收经过拦截器处理的访问并返回给前端相应的信息，信息格式就是第一步RespBean的结构
+
+
+
+前端：
+
+1、新建login组件
+
+2、别忘了在index.html中引入login组件      <script src="components/login.js"></script>
+
+3、在主页设置axios允许携带cookie，即 axios.defaults.withCredentials = true，否则就算登录成功也无法访问其他页面，
+
+4、然后再使用axios的全局拦截即：axios.interceptors.response.use（）只要存在status: "logout"这个情况那就说明未登录或超时，需要重新登陆，利用router.push跳转至登陆页面，否则就不拦截
+
+3、在router中映射刚才复制的login组件，即增加{ path: '/login', component: login }
+（额外的：在pc_head中新建退出按钮方便退出）
